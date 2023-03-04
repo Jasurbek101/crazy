@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import uz.pdp.crazy.entity.dto.UserRequestDTO;
 
 import java.time.LocalDateTime;
 
@@ -30,5 +31,16 @@ public class UserEntity {
     private LocalDateTime registeredTime = LocalDateTime.now();
     @JsonIgnore
     private LocalDateTime lastOperationTime;
+    @Builder.Default
     private boolean active = true;
+
+    public static UserEntity of(UserRequestDTO dto){
+        return UserEntity.builder()
+                .username(dto.getUsername())
+                .fullName(dto.getFullName())
+                .email(dto.getEmail())
+                .phone(dto.getPhone())
+                .registeredTime(LocalDateTime.now())
+                .build();
+    }
 }

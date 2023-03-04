@@ -2,6 +2,7 @@ package uz.pdp.crazy.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import uz.pdp.crazy.entity.dto.UserRequestDTO;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@Builder
 public class SubjectEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +26,5 @@ public class SubjectEntity {
             cascade = CascadeType.ALL
     )
     private List<TopicEntity> topicEntities;
-
 
 }
