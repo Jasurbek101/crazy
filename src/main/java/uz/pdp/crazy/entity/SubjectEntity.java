@@ -2,6 +2,7 @@ package uz.pdp.crazy.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import uz.pdp.crazy.entity.dto.SubjectDTO;
 import uz.pdp.crazy.entity.dto.UserRequestDTO;
 
 import java.util.List;
@@ -26,5 +27,12 @@ public class SubjectEntity {
             cascade = CascadeType.ALL
     )
     private List<TopicEntity> topicEntities;
+
+    public static SubjectEntity of(SubjectDTO subjectDTO){
+        return SubjectEntity.builder()
+                .title(subjectDTO.getTitle())
+                .topicEntities(subjectDTO.getTopicEntities())
+                .build();
+    }
 
 }

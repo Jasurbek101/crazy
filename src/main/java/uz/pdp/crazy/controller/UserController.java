@@ -7,6 +7,7 @@ import uz.pdp.crazy.entity.dto.ApiResponse;
 import uz.pdp.crazy.entity.dto.UserRequestDTO;
 import uz.pdp.crazy.service.UserService;
 
+//@CrossOrigin(origins = "http://localhost:3002/")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
