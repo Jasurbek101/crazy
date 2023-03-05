@@ -22,19 +22,19 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity getUser(@RequestParam("id") Long id ){
         ApiResponse<?> one = userService.getOne(id);
-        return ResponseEntity.status(one.getStatus()).body(one.getData());
+        return ResponseEntity.status(one.getStatus()).body(one);
     }
 
     @GetMapping
     public ResponseEntity getAllUsers(){
         ApiResponse<?> users = userService.getUsers();
-        return ResponseEntity.status(users.getStatus()).body(users.getData());
+        return ResponseEntity.status(users.getStatus()).body(users);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@RequestParam("id") Long id){
         ApiResponse<?> delete = userService.delete(id);
-        return ResponseEntity.status(delete.getStatus()).body(delete.getData());
+        return ResponseEntity.status(delete.getStatus()).body(delete);
     }
 
 //    @PutMapping("/{id}")
