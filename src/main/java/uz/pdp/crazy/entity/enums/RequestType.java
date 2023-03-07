@@ -18,6 +18,4 @@ public enum RequestType {
     EDIT_ADMIN,
     DELETE_ADMIN,
 
-
-
 }

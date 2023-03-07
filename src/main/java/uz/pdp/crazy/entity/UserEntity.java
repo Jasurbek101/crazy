@@ -25,7 +25,7 @@ public class UserEntity {
     private String email;
     @OneToOne(mappedBy = "userEntity")
     @JsonIgnore
-    private Avatar avatar;
+    private AvatarEntity avatarEntity;
     private int count = 0;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime registeredTime = LocalDateTime.now();

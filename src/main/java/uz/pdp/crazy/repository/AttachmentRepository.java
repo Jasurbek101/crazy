@@ -1,9 +1,8 @@
 package uz.pdp.crazy.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import uz.pdp.crazy.entity.Attachment;
+import uz.pdp.crazy.entity.AttachmentEntity;
 
 
-public interface AttachmentRepository extends JpaRepository<Attachment,Long> {
+public interface AttachmentRepository extends JpaRepository<AttachmentEntity,Long> {
 }

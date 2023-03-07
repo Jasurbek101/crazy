@@ -9,7 +9,7 @@ import uz.pdp.crazy.service.SubjectService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/subject")
+@RequestMapping("/api/subject")
 public class SubjectController {
 
     private final SubjectService subjectService;
@@ -27,10 +27,17 @@ public class SubjectController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllSubjects(){
-        ApiResponse<?> allSubjects = subjectService.getAllSubjects();
-        return ResponseEntity.status(allSubjects.getStatus()).body(allSubjects);
+    public ResponseEntity<?> getSubjects(){
+        ApiResponse<?> subject = subjectService.getAllSubjects();
+        return ResponseEntity.status(subject.getStatus()).body(subject);
     }
+
+
+//    @GetMapping
+//    public ResponseEntity<?> getAllSubjects(){
+//        ApiResponse<?> allSubjects = subjectService.getAllSubjects();
+//        return ResponseEntity.status(allSubjects.getStatus()).body(allSubjects);
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteSubject(@RequestParam Long id){

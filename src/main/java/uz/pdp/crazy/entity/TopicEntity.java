@@ -2,6 +2,7 @@ package uz.pdp.crazy.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import uz.pdp.crazy.entity.dto.TopicDTO;
 
 import java.util.List;
 
@@ -30,6 +31,11 @@ public class TopicEntity {
     )
     private List<QuestionEntity> questionEntities;
 
-
-
+    public static TopicEntity of(TopicDTO topicDTO){
+        return TopicEntity.builder()
+                .name(topicDTO.getName())
+                .description(topicDTO.getDescription())
+                .questionEntities(topicDTO.getQuestionEntities())
+                .build();
+    }
 }

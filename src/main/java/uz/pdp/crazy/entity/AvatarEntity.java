@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @ToString
 @Entity
-public class Avatar {
+public class AvatarEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,7 @@ public class Avatar {
     @OneToMany(cascade = CascadeType.ALL)
     @ToString.Exclude
     @JsonIgnore
-    private List<Attachment> photos;
+    private List<AttachmentEntity> photos;
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @ToString.Exclude

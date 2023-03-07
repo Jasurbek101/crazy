@@ -79,7 +79,6 @@ public class SubjectService {
                     .build();
         }
     }
-
     public ApiResponse<?> deleteSubject(Long id) {
         Optional<SubjectEntity> byId = subjectRepository.findById(id);
         if (byId.isPresent()) {
