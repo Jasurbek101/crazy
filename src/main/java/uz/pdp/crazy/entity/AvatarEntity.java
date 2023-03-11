@@ -16,7 +16,7 @@ public class AvatarEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @ToString.Exclude
     @JsonIgnore
     private List<AttachmentEntity> photos;

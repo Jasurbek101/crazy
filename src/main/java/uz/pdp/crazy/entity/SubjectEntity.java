@@ -1,11 +1,9 @@
 package uz.pdp.crazy.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import uz.pdp.crazy.entity.dto.SubjectDTO;
-import uz.pdp.crazy.entity.dto.UserRequestDTO;
-
-import java.util.List;
+import uz.pdp.crazy.entity.dto.SubjectRequestDTO;
 
 @Entity
 @AllArgsConstructor
@@ -13,24 +11,16 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@JsonIgnoreProperties(allowGetters = true)
 public class SubjectEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
     private String title;
 
-    @OneToMany(
-            fetch = FetchType.EAGER,
-            mappedBy = "subjectEntity",
-            cascade = CascadeType.ALL
-    )
-    private List<TopicEntity> topicEntities;
-
-    public static SubjectEntity of(SubjectDTO subjectDTO){
+    public static SubjectEntity of(SubjectRequestDTO subjectDTO) {
         return SubjectEntity.builder()
                 .title(subjectDTO.getTitle())
-                .topicEntities(subjectDTO.getTopicEntities())
                 .build();
     }
 

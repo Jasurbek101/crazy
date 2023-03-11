@@ -19,8 +19,6 @@ public class UserService {
     public ApiResponse<?> add(UserRequestDTO userRequestDTO) {
         Optional<UserEntity> byUsername = userRepository.findByUsername(userRequestDTO.getUsername());
         if (!byUsername.isPresent()) {
-            UserEntity of = UserEntity.of(userRequestDTO);
-            of.setActive(true);
             UserEntity save = userRepository.save(UserEntity.of(userRequestDTO));
             if (save != null) {
                 return ApiResponse.builder()
@@ -43,23 +41,14 @@ public class UserService {
                     .success(false)
                     .build();
         }
-
-
     }
 
     public ApiResponse<?> checkUser(String emailOrPhone) {
         Optional<UserEntity> byEmail = userRepository.findByEmail(emailOrPhone);
-        Optional<UserEntity> byPhone = userRepository.findByPhone(emailOrPhone);
 
         if (byEmail.isPresent()) {
             return ApiResponse.builder()
                     .message(" This email already exist")
-                    .status(404)
-                    .success(false)
-                    .build();
-        } else if (byPhone.isPresent()) {
-            return ApiResponse.builder()
-                    .message(" This phone already exist")
                     .status(404)
                     .success(false)
                     .build();
@@ -127,4 +116,45 @@ public class UserService {
                     .build();
         }
     }
+
+    public ApiResponse<?> update(UserRequestDTO userRequestDTO,Long id) {
+
+        Optional<UserEntity> userEntity = userRepository.findById(id);
+        Optional<UserEntity> byUsername = userRepository.findByUsername(userRequestDTO.getUsername());
+
+        if (userEntity.isPresent()) {
+            if (!byUsername.isPresent()) {
+                UserEntity save = userRepository.save(UserEntity.of(userRequestDTO));
+                if (save != null) {
+                    return ApiResponse.builder()
+                            .message(" User successfully added ")
+                            .status(200)
+                            .success(true)
+                            .data(save)
+                            .build();
+                } else {
+                    return ApiResponse.builder()
+                            .message(" User unsuccessfully added ")
+                            .status(404)
+                            .success(false)
+                            .build();
+                }
+            } else {
+                return ApiResponse.builder()
+                        .message(" This username already exist ")
+                        .status(200)
+                        .success(false)
+                        .build();
+            }
+        }else {
+            return ApiResponse.builder()
+                    .message(" This username doesn't find  ")
+                    .status(404)
+                    .success(false)
+                    .build();
+        }
+
+
+    }
+
 }

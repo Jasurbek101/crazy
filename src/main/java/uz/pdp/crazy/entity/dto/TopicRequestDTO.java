@@ -15,9 +15,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TopicDTO {
+public class TopicRequestDTO {
     private String name;
     private String description;
-    private SubjectEntity subjectId;
-    private List<QuestionEntity> questionEntities;
+    private Long subjectId;
 }

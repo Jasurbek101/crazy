@@ -2,7 +2,7 @@ package uz.pdp.crazy.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import uz.pdp.crazy.entity.dto.TopicDTO;
+import uz.pdp.crazy.entity.dto.TopicRequestDTO;
 
 import java.util.List;
 
@@ -21,21 +21,13 @@ public class TopicEntity {
     private String name;
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private SubjectEntity subjectEntity;
 
-    @OneToMany(
-            fetch = FetchType.EAGER,
-            mappedBy = "topicEntity",
-            cascade = CascadeType.ALL
-    )
-    private List<QuestionEntity> questionEntities;
-
-    public static TopicEntity of(TopicDTO topicDTO){
+    public static TopicEntity of(TopicRequestDTO topicDTO){
         return TopicEntity.builder()
                 .name(topicDTO.getName())
                 .description(topicDTO.getDescription())
-                .questionEntities(topicDTO.getQuestionEntities())
                 .build();
     }
 }

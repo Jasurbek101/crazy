@@ -4,7 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import uz.pdp.crazy.entity.SubjectEntity;
 import uz.pdp.crazy.entity.dto.ApiResponse;
-import uz.pdp.crazy.entity.dto.SubjectDTO;
+import uz.pdp.crazy.entity.dto.RequestDTO;
+import uz.pdp.crazy.entity.dto.SubjectRequestDTO;
 import uz.pdp.crazy.repository.SubjectRepository;
 
 import java.util.List;
@@ -14,12 +15,19 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SubjectService {
     private final SubjectRepository subjectRepository;
+    private final RequestService requestService;
 
-    public ApiResponse<?> add(SubjectDTO subjectDTO) {
+    public ApiResponse<?> add(SubjectRequestDTO subjectDTO) {
         Optional<SubjectEntity> byTitle = subjectRepository.findByTitle(subjectDTO.getTitle());
         if (!byTitle.isPresent()) {
             SubjectEntity subjectEntity = subjectRepository.save(SubjectEntity.of(subjectDTO));
             if (subjectEntity != null) {
+//                RequestDTO requestDTO = RequestDTO.builder()
+//                        .productId(subjectEntity.getId())
+//                        .userId(userId)
+//                        .build();
+//
+//                requestService.addSubject(requestDTO);
                 return ApiResponse.builder()
                         .message(" Subject successfully added ")
                         .status(200)
@@ -62,7 +70,7 @@ public class SubjectService {
     }
 
     public ApiResponse<?> getAllSubjects() {
-        List<SubjectEntity> all = subjectRepository.findAll();
+            List<SubjectEntity> all = subjectRepository.findAll();
         if (all != null) {
             return ApiResponse.builder()
                     .message(" Here !!! ")

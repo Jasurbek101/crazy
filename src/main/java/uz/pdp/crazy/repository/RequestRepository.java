@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import uz.pdp.crazy.entity.QuestionEntity;
 import uz.pdp.crazy.entity.RequestEntity;
 
-
+@Repository
 public interface RequestRepository extends JpaRepository<RequestEntity,Long> {
+
 }
