@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import uz.pdp.crazy.entity.DepartmentEntity;
+import uz.pdp.crazy.entity.UserEntity;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class SubjectResponseDTO {
     private Long id;
     private String name;
     private Long userNumber;
-    private Long userId;
+    private UserResponseDTO user;
     private String cost;
     private List<DepartmentEntity> departmentEntityList;
 

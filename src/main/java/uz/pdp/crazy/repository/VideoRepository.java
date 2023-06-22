@@ -6,4 +6,5 @@ import uz.pdp.crazy.entity.VideoEntity;
 
 @Repository
 public interface VideoRepository extends JpaRepository<VideoEntity,Long> {
+   void deleteById(Long id);
 }

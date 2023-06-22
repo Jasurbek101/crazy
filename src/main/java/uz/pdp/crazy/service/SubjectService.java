@@ -3,6 +3,7 @@ package uz.pdp.crazy.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import uz.pdp.crazy.controller.convert.SubjectConvert;
+import uz.pdp.crazy.controller.convert.UserConvert;
 import uz.pdp.crazy.entity.SubjectEntity;
 import uz.pdp.crazy.entity.UserEntity;
 import uz.pdp.crazy.entity.dto.ApiResponse;
@@ -20,7 +21,7 @@ public class SubjectService {
     private final SubjectRepository subjectRepository;
     private final UserRepository userRepository;
 
-    public ApiResponse<SubjectEntity> addSubject(SubjectRequestDTO subjectRequestDTO){
+    public ApiResponse<SubjectResponseDTO> addSubject(SubjectRequestDTO subjectRequestDTO){
         if (subjectRequestDTO == null) {
             throw new RecordNotFoundException(" This subject is empty");
         }
@@ -33,11 +34,11 @@ public class SubjectService {
 
         SubjectEntity save = subjectRepository.save(subject);
 
-        return ApiResponse.<SubjectEntity>builder()
+        return ApiResponse.<SubjectResponseDTO>builder()
                 .status(200)
                 .message("Successfully Added")
                 .success(true)
-                .data(save)
+                .data(SubjectConvert.convertToResponseDTO(subject))
                 .build();
     }
 
@@ -45,39 +46,40 @@ public class SubjectService {
         SubjectEntity subjectEntity = subjectRepository.findById(id).orElseThrow(
                 () -> new RecordNotFoundException(String.format(" not found subject with id : ", id))
         );
+        SubjectResponseDTO subject= SubjectConvert.convertToResponseDTO(subjectEntity);
 
         return ApiResponse.<SubjectResponseDTO>builder()
                 .status(200)
-                .message(" This is")
+                .message(" This is ...")
                 .success(true)
-                .data(SubjectConvert.convertToResponseDTO(subjectEntity))
+                .data(subject)
                 .build();
     }
 
 
-    public ApiResponse<List<SubjectEntity>> getAllSubjects(){
+    public ApiResponse<List<SubjectResponseDTO>> getAllSubjects(){
         List<SubjectEntity> subjectRepositoryAll = subjectRepository.findAll();
 
-        return ApiResponse.<List<SubjectEntity>>builder()
+        return ApiResponse.<List<SubjectResponseDTO>>builder()
                 .status(200)
                 .message(" Here !!!")
                 .success(true)
-                .data(subjectRepositoryAll)
+                .data(SubjectConvert.convertToResponseDTO(subjectRepositoryAll))
                 .build();
     }
 
 
-    public ApiResponse<SubjectEntity> deleteSubject(Long id){
+    public ApiResponse<SubjectResponseDTO> deleteSubject(Long id){
         SubjectEntity subjectEntity = subjectRepository.findById(id).orElseThrow(
                 () -> new RecordNotFoundException(String.format(" not found subject with id : ", id))
         );
 
         subjectRepository.deleteById(id);
-        return ApiResponse.<SubjectEntity>builder()
+        return ApiResponse.<SubjectResponseDTO>builder()
                 .status(200)
-                .message(" Here !!!")
+                .message(" Deleted !!!")
                 .success(true)
-                .data(subjectEntity)
+                .data(SubjectConvert.convertToResponseDTO(subjectEntity))
                 .build();
     }
 

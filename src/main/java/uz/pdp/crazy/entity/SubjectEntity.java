@@ -21,7 +21,7 @@ public class SubjectEntity {
     private String name;
     @Builder.Default
     private Long usersNumber = 0L;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
     private String cost;

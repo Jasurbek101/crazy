@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import uz.pdp.crazy.entity.SubjectEntity;
 import uz.pdp.crazy.entity.dto.ApiResponse;
 import uz.pdp.crazy.entity.dto.SubjectRequestDTO;
 import uz.pdp.crazy.entity.dto.SubjectResponseDTO;
@@ -29,7 +28,7 @@ public class SubjectController {
 
     @GetMapping
     public ResponseEntity getAllSubjects(){
-        ApiResponse<List<SubjectEntity>> allSubjects = subjectService.getAllSubjects();
+        ApiResponse<List<SubjectResponseDTO>> allSubjects = subjectService.getAllSubjects();
         return ResponseEntity.status(allSubjects.getStatus()).body(allSubjects);
     }
 
@@ -42,7 +41,7 @@ public class SubjectController {
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPERADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity deleteSubject(@PathVariable Long id){
-        ApiResponse<SubjectEntity> subject = subjectService.deleteSubject(id);
+        ApiResponse<SubjectResponseDTO> subject = subjectService.deleteSubject(id);
         return ResponseEntity.status(subject.getStatus()).body(subject);
     }
 

@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Setter
 @Getter
+@Builder
 public class VideoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
