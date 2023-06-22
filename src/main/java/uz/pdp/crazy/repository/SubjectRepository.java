@@ -1,13 +1,10 @@
 package uz.pdp.crazy.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import uz.pdp.crazy.entity.SubjectEntity;
 
-import java.util.List;
-import java.util.Optional;
-
+@Repository
 public interface SubjectRepository extends JpaRepository<SubjectEntity,Long> {
-    Optional<SubjectEntity> findByTitle(String title);
-    List<SubjectEntity> findAll();
     void deleteById(Long id);
 }

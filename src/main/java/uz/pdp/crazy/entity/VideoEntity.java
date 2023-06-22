@@ -4,18 +4,15 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@Table(name = "videos")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Setter
-@ToString
-public class QuestionEntity {
+@Getter
+public class VideoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String data;
-    private String methodData;
-    @ManyToOne
-    private TopicEntity topicEntity;
+    private String url;
 }

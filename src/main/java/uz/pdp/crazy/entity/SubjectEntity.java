@@ -1,38 +1,35 @@
 package uz.pdp.crazy.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
-import uz.pdp.crazy.entity.dto.SubjectDTO;
-import uz.pdp.crazy.entity.dto.UserRequestDTO;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
 @Builder
+@Entity(name = "subjects")
 public class SubjectEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
-    private String title;
-
-    @OneToMany(
-            fetch = FetchType.EAGER,
-            mappedBy = "subjectEntity",
-            cascade = CascadeType.ALL
-    )
-    private List<TopicEntity> topicEntities;
-
-    public static SubjectEntity of(SubjectDTO subjectDTO){
-        return SubjectEntity.builder()
-                .title(subjectDTO.getTitle())
-                .topicEntities(subjectDTO.getTopicEntities())
-                .build();
-    }
+    private String name;
+    @Builder.Default
+    private Long usersNumber = 0L;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
+    private String cost;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "subject_id",referencedColumnName = "id")
+    private List<DepartmentEntity> departmentEntity;
+    @Builder.Default
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createdAt = LocalDateTime.now();
 
 }

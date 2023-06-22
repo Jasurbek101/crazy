@@ -2,6 +2,7 @@ package uz.pdp.crazy.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.crazy.entity.dto.ApiResponse;
 import uz.pdp.crazy.entity.dto.UserRequestDTO;
@@ -13,27 +14,25 @@ import uz.pdp.crazy.service.UserService;
 @RequestMapping("/api/user")
 public class UserController {
     private final UserService userService;
-    @PostMapping
-    public ResponseEntity add(@RequestBody UserRequestDTO requestDTO){
-        ApiResponse<?> add = userService.add(requestDTO);
-        return ResponseEntity.status(add.getStatus()).body(add.getData());
-    }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPERADMIN')")
     @GetMapping("/{id}")
-    public ResponseEntity getUser(@RequestParam("id") Long id ){
-        ApiResponse<?> one = userService.getOne(id);
+    public ResponseEntity getUser(@PathVariable("id") Long id ){
+        ApiResponse<?> one = userService.getOneUser(id);
         return ResponseEntity.status(one.getStatus()).body(one);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPERADMIN')")
     @GetMapping
     public ResponseEntity getAllUsers(){
-        ApiResponse<?> users = userService.getUsers();
+        ApiResponse<?> users = userService.getAllUsers();
         return ResponseEntity.status(users.getStatus()).body(users);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPERADMIN')")
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@RequestParam("id") Long id){
-        ApiResponse<?> delete = userService.delete(id);
+    public ResponseEntity delete(@PathVariable("id") Long id){
+        ApiResponse<?> delete = userService.deleteUser(id);
         return ResponseEntity.status(delete.getStatus()).body(delete);
     }
 
@@ -43,6 +42,5 @@ public class UserController {
 //
 //        return ResponseEntity.status(delete.getStatus()).body(delete.getData());
 //    }
-
 
 }
