@@ -6,5 +6,5 @@ import uz.pdp.crazy.entity.SubjectEntity;
 
 @Repository
 public interface SubjectRepository extends JpaRepository<SubjectEntity,Long> {
-    void deleteById(Long id);
+
 }

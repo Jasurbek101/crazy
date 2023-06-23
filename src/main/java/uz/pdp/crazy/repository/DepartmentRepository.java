@@ -6,6 +6,5 @@ import uz.pdp.crazy.entity.DepartmentEntity;
 
 @Repository
 public interface DepartmentRepository extends JpaRepository<DepartmentEntity,Long> {
-    @Override
-    void delete(DepartmentEntity entity);
+
 }

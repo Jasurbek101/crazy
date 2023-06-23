@@ -10,7 +10,6 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity,Long> {
 
-    Optional<UserEntity> findByPhone(String username);
-     void deleteById(Long id);
-     boolean existsByPhone(String phone);
+    Optional<UserEntity> findByPhone(String phone);
+
 }
