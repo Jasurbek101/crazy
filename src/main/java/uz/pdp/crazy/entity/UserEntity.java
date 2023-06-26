@@ -8,19 +8,15 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import uz.pdp.crazy.entity.dto.UserRequestDTO;
 import uz.pdp.crazy.entity.enums.RoleEnam;
 
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
-@Builder
 @Entity(name = "users")
 public class UserEntity implements UserDetails {
     @Id
@@ -90,17 +86,6 @@ public class UserEntity implements UserDetails {
     public boolean isEnabled() {
         return this.enabled;
     }
-
-    public static UserEntity from(UserRequestDTO dto) {
-        return UserEntity.builder()
-                .firstname(dto.getFirstname())
-                .lastname(dto.getLastname())
-                .phone(dto.getPhone())
-                .password(dto.getPassword())
-                .build();
-    }
-
-
 
 }
 

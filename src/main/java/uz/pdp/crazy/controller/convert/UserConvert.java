@@ -1,6 +1,5 @@
 package uz.pdp.crazy.controller.convert;
 
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
 import uz.pdp.crazy.entity.UserEntity;
 import uz.pdp.crazy.entity.dto.RegisterRequestDTO;
@@ -12,16 +11,16 @@ import uz.pdp.crazy.entity.enums.RoleEnam;
 public class UserConvert {
 
     public UserEntity convertToEntity(RegisterRequestDTO requestDTO) {
-        return UserEntity.builder()
-                .firstname(requestDTO.getFirstname())
-                .lastname(requestDTO.getLastname())
-                .phone(requestDTO.getPhone())
-                .password(requestDTO.getPassword())
-                .roleEnam(RoleEnam.ROLE_USER)
-                .build();
+        UserEntity user = new UserEntity();
+        user.setFirstname(requestDTO.getFirstname());
+        user.setLastname(requestDTO.getLastname());
+        user.setPhone(requestDTO.getPhone());
+        user.setPassword(requestDTO.getPassword());
+        user.setRoleEnam(RoleEnam.ROLE_USER);
+        return user;
     }
 
-    public UserResponseDTO convertToResponseDTO(UserEntity user){
+    public UserResponseDTO convertToResponseDTO(UserEntity user) {
         return UserResponseDTO.builder()
                 .id(user.getId())
                 .firstname(user.getFirstname())
@@ -30,7 +29,5 @@ public class UserConvert {
                 .roleEnam(user.getRoleEnam())
                 .build();
     }
-
-
 }
 

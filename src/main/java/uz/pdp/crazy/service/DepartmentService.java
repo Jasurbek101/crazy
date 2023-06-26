@@ -24,54 +24,54 @@ public class DepartmentService {
                 () -> new RecordNotFoundException(String.format(" Subject not fount with %s id", dto.getSubjectId()))
         );
 
-        DepartmentEntity save = departmentRepository.save(DepartmentConvert.convertToEntity(dto));
+        DepartmentEntity departmentEntity = departmentRepository.save(DepartmentConvert.convertToEntity(dto));
 
-        List<DepartmentEntity> departmentEntityList = subject.getDepartmentEntity();
-        departmentEntityList.add(save);
+        List<DepartmentEntity> departmentEntityList = subject.getDepartmentEntities();
+        departmentEntityList.add(departmentEntity);
 
-        subject.setDepartmentEntity(departmentEntityList);
+        subject.setDepartmentEntities(departmentEntityList);
 
-        SubjectEntity save1 = subjectRepository.save(subject);
+        SubjectEntity subjectEntity = subjectRepository.save(subject);
         return ApiResponse.<DepartmentEntity>builder()
                 .message(" Succesfully Added")
                 .success(true)
-                .data(save)
+                .data(departmentEntity)
                 .status(200)
                 .build();
     }
 
     public ApiResponse<DepartmentEntity> getOneDepartment(Long id) {
-        DepartmentEntity department = departmentRepository.findById(id).orElseThrow(
+        DepartmentEntity departmentEntity = departmentRepository.findById(id).orElseThrow(
                 () -> new RecordNotFoundException(String.format(" Department not fount with %s id", id))
         );
         return ApiResponse.<DepartmentEntity>builder()
                 .status(200)
                 .message(" Here !!! ")
-                .data(department)
+                .data(departmentEntity)
                 .success(true)
                 .build();
     }
 
     public ApiResponse<List<DepartmentEntity>> getAllDepartment() {
-        List<DepartmentEntity> all = departmentRepository.findAll();
+        List<DepartmentEntity> departmentEntityList = departmentRepository.findAll();
         return ApiResponse.<List<DepartmentEntity>>builder()
                 .status(200)
                 .message(" Here !!! ")
-                .data(all)
+                .data(departmentEntityList)
                 .success(true)
                 .build();
     }
 
     public ApiResponse<DepartmentEntity> deleteDepartment(Long id) {
-        DepartmentEntity department = departmentRepository.findById(id).orElseThrow(
+        DepartmentEntity departmentEntity = departmentRepository.findById(id).orElseThrow(
                 () -> new RecordNotFoundException(String.format(" Department not fount with %s id", id))
         );
-        departmentRepository.delete(department);
+        departmentRepository.delete(departmentEntity);
 
         return ApiResponse.<DepartmentEntity>builder()
                 .status(200)
                 .message(" Here !!! ")
-                .data(department)
+                .data(departmentEntity)
                 .success(true)
                 .build();
     }

@@ -6,9 +6,10 @@ import uz.pdp.crazy.entity.dto.DepartmentRequestDTO;
 
 @UtilityClass
 public class DepartmentConvert {
-    public DepartmentEntity convertToEntity(DepartmentRequestDTO dto){
-        return DepartmentEntity.builder()
-                .name(dto.getName())
-                .build();
+    public DepartmentEntity convertToEntity(DepartmentRequestDTO dto) {
+        DepartmentEntity department = new DepartmentEntity();
+        department.setName(dto.getName());
+
+        return department;
     }
 }

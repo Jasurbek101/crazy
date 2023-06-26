@@ -7,28 +7,24 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
-@Builder
 @Entity(name = "subjects")
 public class SubjectEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Builder.Default
-    private Long usersNumber = 0L;
+    private Long usersNumber;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
     private String cost;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "subject_id",referencedColumnName = "id")
-    private List<DepartmentEntity> departmentEntity;
-    @Builder.Default
+    private List<DepartmentEntity> departmentEntities;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt = LocalDateTime.now();
 

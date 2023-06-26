@@ -6,10 +6,11 @@ import uz.pdp.crazy.entity.dto.VideoRequestDTO;
 
 @UtilityClass
 public class VideoConvert {
-    public VideoEntity convertToEntity(VideoRequestDTO videoRequestDTO){
-        return VideoEntity.builder()
-                .name(videoRequestDTO.getName())
-                .url(videoRequestDTO.getUrl())
-                .build();
+    public VideoEntity convertToEntity(VideoRequestDTO videoRequestDTO) {
+        VideoEntity video = new VideoEntity();
+        video.setName(videoRequestDTO.getName());
+        video.setUrl(videoRequestDTO.getUrl());
+
+        return video;
     }
 }

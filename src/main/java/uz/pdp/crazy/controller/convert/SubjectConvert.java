@@ -10,14 +10,17 @@ import java.util.List;
 
 @UtilityClass
 public class SubjectConvert {
-    public SubjectEntity convertToEntity(SubjectRequestDTO dto){
-            return SubjectEntity.builder()
-                    .name(dto.getName())
-                    .cost(dto.getCost())
-                    .build();
+    public SubjectEntity convertToEntity(SubjectRequestDTO dto) {
+        SubjectEntity subjectEntity = new SubjectEntity();
+
+        subjectEntity.setName(dto.getName());
+        subjectEntity.setUsersNumber(0L);
+        subjectEntity.setCost(dto.getCost());
+
+        return subjectEntity;
     }
 
-    public SubjectResponseDTO convertToResponseDTO(SubjectEntity subject){
+    public SubjectResponseDTO convertToResponseDTO(SubjectEntity subject) {
         return SubjectResponseDTO.builder()
                 .id(subject.getId())
                 .name(subject.getName())
@@ -25,11 +28,11 @@ public class SubjectConvert {
                 .userNumber(subject.getUsersNumber())
                 .user(UserConvert.convertToResponseDTO(subject.getUserEntity()))
                 .cost(subject.getCost())
-                .departmentEntityList(subject.getDepartmentEntity())
+                .departmentEntityList(subject.getDepartmentEntities())
                 .build();
     }
 
-    public List<SubjectResponseDTO> convertToResponseDTO(List<SubjectEntity> subject){
+    public List<SubjectResponseDTO> convertToResponseDTO(List<SubjectEntity> subject) {
         List<SubjectResponseDTO> subjectList = new LinkedList<>();
 
         for (SubjectEntity subjectEntity : subject) {

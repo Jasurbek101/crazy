@@ -5,11 +5,9 @@ import lombok.*;
 
 @Entity
 @Table(name = "videos")
-@AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
-@Builder
 public class VideoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
