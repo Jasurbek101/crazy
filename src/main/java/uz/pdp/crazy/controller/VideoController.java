@@ -20,29 +20,49 @@ public class VideoController {
     private final VideoService videoService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPERADMIN')")
-    public ResponseEntity<?> addVideo(@RequestBody VideoRequestDTO video){
-        ApiResponse<VideoEntity> addVideo = videoService.addVideo(video);
-        return ResponseEntity.status(addVideo.getStatus()).body(addVideo);
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPERADMIN')")
+    public ApiResponse<VideoEntity> addVideo(@RequestBody VideoRequestDTO video){
+        VideoEntity savedVideoEntity = videoService.addVideo(video);
+        return ApiResponse.<VideoEntity>builder()
+                .message(" Succesfully Added ")
+                .success(true)
+                .status(200)
+                .data(savedVideoEntity)
+                .build();
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOneVideo(@PathVariable Long id){
-        ApiResponse<VideoEntity> addVideo = videoService.getOneVideo(id);
-        return ResponseEntity.status(addVideo.getStatus()).body(addVideo);
+    public ApiResponse<VideoEntity> getOneVideo(@PathVariable Long id){
+        VideoEntity videoEntity = videoService.getOneVideo(id);
+        return ApiResponse.<VideoEntity>builder()
+                .message(" Here !!! ")
+                .status(200)
+                .data(videoEntity)
+                .success(true)
+                .build();
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllVideo(){
-        ApiResponse<List<VideoEntity>> allVideos = videoService.getAllVideos();
-        return ResponseEntity.status(allVideos.getStatus()).body(allVideos);
+    public ApiResponse<List<VideoEntity>> getAllVideo(){
+        List<VideoEntity> allVideos = videoService.getAllVideos();
+        return ApiResponse.<List<VideoEntity>>builder()
+                .message(" Here !!! ")
+                .status(200)
+                .data(allVideos)
+                .success(true)
+                .build();
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPERADMIN')")
-    public ResponseEntity<?> deleteVideo(@PathVariable Long id){
-        ApiResponse<VideoEntity> video = videoService.deleteVideo(id);
-        return ResponseEntity.status(video.getStatus()).body(video);
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPERADMIN')")
+    public ApiResponse<VideoEntity> deleteVideo(@PathVariable Long id){
+        VideoEntity deleteVideo = videoService.deleteVideo(id);
+        return ApiResponse.<VideoEntity>builder()
+                .message(" Deleted !!! ")
+                .status(200)
+                .data(deleteVideo)
+                .success(true)
+                .build();
     }
 }

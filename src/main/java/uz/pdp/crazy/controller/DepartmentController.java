@@ -1,7 +1,6 @@
 package uz.pdp.crazy.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.crazy.entity.DepartmentEntity;
@@ -19,28 +18,48 @@ public class DepartmentController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPERADMIN')")
-    public ResponseEntity<?> addDepartment(@RequestBody DepartmentRequestDTO dto){
-        ApiResponse<DepartmentEntity> department = departmentService.addDepartment(dto);
-        return ResponseEntity.status(department.getStatus()).body(department);
+    public ApiResponse<DepartmentEntity> addDepartment(@RequestBody DepartmentRequestDTO dto){
+        DepartmentEntity departmentEntity = departmentService.addDepartment(dto);
+        return ApiResponse.<DepartmentEntity>builder()
+                .message(" Succesfully Added ")
+                .success(true)
+                .data(departmentEntity)
+                .status(200)
+                .build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOneDepartment(@PathVariable Long id){
-        ApiResponse<DepartmentEntity> department = departmentService.getOneDepartment(id);
-        return ResponseEntity.status(department.getStatus()).body(department);
+    public ApiResponse<DepartmentEntity> getOneDepartment(@PathVariable Long id){
+        DepartmentEntity department = departmentService.getOneDepartment(id);
+        return ApiResponse.<DepartmentEntity>builder()
+                .message(" Here !!! ")
+                .success(true)
+                .data(department)
+                .status(200)
+                .build();
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllDepartment(){
-        ApiResponse<List<DepartmentEntity>> department = departmentService.getAllDepartment();
-        return ResponseEntity.status(department.getStatus()).body(department);
+    public ApiResponse<List<DepartmentEntity>> getAllDepartment(){
+        List<DepartmentEntity> departmentEntityList = departmentService.getAllDepartments();
+        return ApiResponse.<List<DepartmentEntity>>builder()
+                .status(200)
+                .message(" That's All !!! ")
+                .data(departmentEntityList)
+                .success(true)
+                .build();
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPERADMIN')")
-    public ResponseEntity<?> deleteDepartment(@PathVariable Long id){
-        ApiResponse<DepartmentEntity> department = departmentService.deleteDepartment(id);
-        return ResponseEntity.status(department.getStatus()).body(department);
+    public ApiResponse<DepartmentEntity> deleteDepartment(@PathVariable Long id){
+        DepartmentEntity departmentEntity = departmentService.deleteDepartment(id);
+        return ApiResponse.<DepartmentEntity>builder()
+                .status(200)
+                .message(" Succesfully Deleted ")
+                .data(departmentEntity)
+                .success(true)
+                .build();
     }
 
 

@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import uz.pdp.crazy.controller.convert.SubjectConvert;
 import uz.pdp.crazy.entity.dto.ApiResponse;
 import uz.pdp.crazy.entity.dto.SubjectRequestDTO;
 import uz.pdp.crazy.entity.dto.SubjectResponseDTO;
@@ -21,28 +22,48 @@ public class SubjectController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPERADMIN')")
     @PostMapping
-    public ResponseEntity addSubject(@RequestBody SubjectRequestDTO subjectRequestDTO){
-        ApiResponse<?> add = subjectService.addSubject(subjectRequestDTO);
-        return ResponseEntity.status(add.getStatus()).body(add.getData());
+    public ApiResponse<SubjectResponseDTO> addSubject(@RequestBody SubjectRequestDTO subjectRequestDTO){
+        SubjectResponseDTO subjectResponseDTO = subjectService.addSubject(subjectRequestDTO);
+        return ApiResponse.<SubjectResponseDTO>builder()
+                .status(200)
+                .message("Successfully Added")
+                .success(true)
+                .data(subjectResponseDTO)
+                .build();
     }
 
     @GetMapping
-    public ResponseEntity getAllSubjects(){
-        ApiResponse<List<SubjectResponseDTO>> allSubjects = subjectService.getAllSubjects();
-        return ResponseEntity.status(allSubjects.getStatus()).body(allSubjects);
+    public ApiResponse<List<SubjectResponseDTO>> getAllSubjects(){
+        List<SubjectResponseDTO> subjectEntityList = subjectService.getAllSubjects();
+        return ApiResponse.<List<SubjectResponseDTO>>builder()
+                .status(200)
+                .message(" That's All Subjects ")
+                .success(true)
+                .data(subjectEntityList)
+                .build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getOneSubject(@PathVariable Long id){
-        ApiResponse<SubjectResponseDTO> subject = subjectService.getSubject(id);
-        return ResponseEntity.status(subject.getStatus()).body(subject);
+    public ApiResponse<SubjectResponseDTO> getOneSubject(@PathVariable Long id){
+        SubjectResponseDTO subjectResponseDTO = subjectService.getSubject(id);
+        return ApiResponse.<SubjectResponseDTO>builder()
+                .status(200)
+                .message(" This is subject")
+                .success(true)
+                .data(subjectResponseDTO)
+                .build();
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPERADMIN')")
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteSubject(@PathVariable Long id){
-        ApiResponse<SubjectResponseDTO> subject = subjectService.deleteSubject(id);
-        return ResponseEntity.status(subject.getStatus()).body(subject);
+    public ApiResponse<SubjectResponseDTO> deleteSubject(@PathVariable Long id){
+        SubjectResponseDTO subjectResponseDTO = subjectService.deleteSubject(id);
+        return ApiResponse.<SubjectResponseDTO>builder()
+                .status(200)
+                .message(" Deleted !!!")
+                .success(true)
+                .data(subjectResponseDTO)
+                .build();
     }
 
 }

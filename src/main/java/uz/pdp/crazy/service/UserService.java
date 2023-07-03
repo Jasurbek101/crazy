@@ -14,43 +14,22 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
 
-    public ApiResponse<?> getOneUser(Long id) {
+    public UserEntity getOneUser(Long id) {
+        return userRepository.findById(id).orElseThrow(
+                () -> new RecordNotFoundException(String.format("Can not found user with id : ", id))
+        );
+    }
+
+    public List<UserEntity> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public UserEntity deleteUser(Long id) {
         UserEntity userEntity = userRepository.findById(id).orElseThrow(
                 () -> new RecordNotFoundException(String.format("Can not found user with id : ", id))
         );
-
-        return ApiResponse.builder()
-                .message(" Here !!! ")
-                .status(200)
-                .success(true)
-                .data(userEntity)
-                .build();
-
-    }
-
-    public ApiResponse<?> getAllUsers() {
-        List<UserEntity> userEntities = userRepository.findAll();
-        return ApiResponse.builder()
-                .message(" Here !!! ")
-                .status(200)
-                .success(true)
-                .data(userEntities)
-                .build();
-    }
-
-    public ApiResponse<?> deleteUser(Long id) {
-        UserEntity userEntity = userRepository.findById(id).orElseThrow(
-                () -> new RecordNotFoundException(String.format("Can not found user with id : ", id))
-        );
-
         userRepository.deleteById(id);
-        return ApiResponse.builder()
-                .message(" User succesfully deleted ")
-                .status(200)
-                .success(true)
-                .data(userEntity)
-                .build();
-
+        return userEntity;
     }
 
     public ApiResponse<?> me(String phone) {

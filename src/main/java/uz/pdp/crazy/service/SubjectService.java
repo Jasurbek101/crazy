@@ -20,7 +20,7 @@ public class SubjectService {
     private final SubjectRepository subjectRepository;
     private final UserRepository userRepository;
 
-    public ApiResponse<SubjectResponseDTO> addSubject(SubjectRequestDTO subjectRequestDTO){
+    public SubjectResponseDTO addSubject(SubjectRequestDTO subjectRequestDTO){
         if (subjectRequestDTO == null) {
             throw new RecordNotFoundException(" This subject is empty");
         }
@@ -33,53 +33,29 @@ public class SubjectService {
 
         SubjectEntity savedSubject = subjectRepository.save(subjectEntity);
         SubjectResponseDTO subjectResponseDTO = SubjectConvert.convertToResponseDTO(subjectEntity);
-
-        return ApiResponse.<SubjectResponseDTO>builder()
-                .status(200)
-                .message("Successfully Added")
-                .success(true)
-                .data(subjectResponseDTO)
-                .build();
+        return subjectResponseDTO;
     }
 
-    public ApiResponse<SubjectResponseDTO> getSubject(Long id){
+    public SubjectResponseDTO getSubject(Long id){
         SubjectEntity subjectEntity = subjectRepository.findById(id).orElseThrow(
                 () -> new RecordNotFoundException(String.format(" not found subject with id : ", id))
         );
-        SubjectResponseDTO subjectResponseDTO = SubjectConvert.convertToResponseDTO(subjectEntity);
-
-        return ApiResponse.<SubjectResponseDTO>builder()
-                .status(200)
-                .message(" This is ...")
-                .success(true)
-                .data(subjectResponseDTO)
-                .build();
+        return SubjectConvert.convertToResponseDTO(subjectEntity);
     }
 
 
-    public ApiResponse<List<SubjectResponseDTO>> getAllSubjects(){
+    public List<SubjectResponseDTO> getAllSubjects(){
         List<SubjectEntity> subjectEntityList = subjectRepository.findAll();
-
-        return ApiResponse.<List<SubjectResponseDTO>>builder()
-                .status(200)
-                .message(" Here !!!")
-                .success(true)
-                .data(SubjectConvert.convertToResponseDTO(subjectEntityList))
-                .build();
+       return SubjectConvert.convertToResponseDTO(subjectEntityList);
     }
 
 
-    public ApiResponse<SubjectResponseDTO> deleteSubject(Long id){
+    public SubjectResponseDTO deleteSubject(Long id){
         SubjectEntity subjectEntity = subjectRepository.findById(id).orElseThrow(
                 () -> new RecordNotFoundException(String.format(" not found subject with id : ", id))
         );
 
         subjectRepository.deleteById(id);
-        return ApiResponse.<SubjectResponseDTO>builder()
-                .status(200)
-                .message(" Deleted !!!")
-                .success(true)
-                .data(SubjectConvert.convertToResponseDTO(subjectEntity))
-                .build();
+       return SubjectConvert.convertToResponseDTO(subjectEntity);
     }
 }
