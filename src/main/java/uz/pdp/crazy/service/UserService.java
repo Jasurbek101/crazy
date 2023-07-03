@@ -53,4 +53,18 @@ public class UserService {
 
     }
 
+    public ApiResponse<?> me(String phone) {
+        UserEntity userEntity = userRepository.findByPhone(phone).orElseThrow(
+                () -> new RecordNotFoundException(String.format("Can not found user with phone : ", phone))
+        );
+
+        return ApiResponse.builder()
+                .message(" User succesfully deleted ")
+                .status(200)
+                .success(true)
+                .data(userEntity)
+                .build();
+
+    }
+
 }

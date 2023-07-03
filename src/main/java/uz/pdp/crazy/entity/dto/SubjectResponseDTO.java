@@ -14,13 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SubjectResponseDTO {
-
     private Long id;
     private String name;
     private Long userNumber;
     private UserResponseDTO user;
     private String cost;
     private List<DepartmentEntity> departmentEntityList;
-
-
 }

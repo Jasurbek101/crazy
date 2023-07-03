@@ -42,13 +42,9 @@ public class UserEntity implements UserDetails {
     @UpdateTimestamp
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp updateTime;
-    @Builder.Default
     private boolean accountNonExpired = true;
-    @Builder.Default
     private boolean accountNonLocked = true;
-    @Builder.Default
     private boolean credentialsNonExpired = true;
-    @Builder.Default
     private boolean enabled = true;
 
 
@@ -86,6 +82,5 @@ public class UserEntity implements UserDetails {
     public boolean isEnabled() {
         return this.enabled;
     }
-
 }
 

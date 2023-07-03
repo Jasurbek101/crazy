@@ -1,5 +1,6 @@
 package uz.pdp.crazy.controller;
 
+import jakarta.persistence.Persistence;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -8,7 +9,6 @@ import uz.pdp.crazy.entity.dto.ApiResponse;
 import uz.pdp.crazy.entity.dto.UserRequestDTO;
 import uz.pdp.crazy.service.UserService;
 
-//@CrossOrigin(origins = "http://localhost:3002/")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
@@ -35,12 +35,4 @@ public class UserController {
         ApiResponse<?> delete = userService.deleteUser(id);
         return ResponseEntity.status(delete.getStatus()).body(delete);
     }
-
-//    @PutMapping("/{id}")
-//    public ResponseEntity update(@RequestParam("id") Long id){
-//
-//
-//        return ResponseEntity.status(delete.getStatus()).body(delete.getData());
-//    }
-
 }
